@@ -1,0 +1,31 @@
+server:
+  port: 9000
+eureka:
+  client:
+    service-url:
+         default-zone: http://localhost:8761/
+     
+spring:
+  application:
+    name: GATEWAY-SERVICE
+  cloud:
+    gateway:
+      routes: 
+      - id: agentService
+        uri: lb://AGENT-SERVICE
+        predicates:
+        - Path=/agent-api/**
+      - id: packageService
+        uri: lb://PACKAGE-SERCVICE
+        predicates:
+        - Path=/packages-api/**
+      - id: taskService
+        uri: lb://TASK-SERVICE
+        predicates:
+        -  Path=/task-api/**
+      - id: workerService
+        uri: lb://WORKER-SERVICE
+        predicates:
+        -  Path=/worker-api/**
+        
+            
